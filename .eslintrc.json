@@ -1,0 +1,12 @@
+{
+    "extends": [
+        "./node_modules/standard/eslintrc.json",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "root": true,
+    "rules": {
+        "camelcase": "off"
+    }
+}

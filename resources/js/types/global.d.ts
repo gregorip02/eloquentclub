@@ -1,6 +1,7 @@
-import ziggyRoute, { Config as ZiggyConfig } from 'ziggy-js';
+/* eslint-disable no-var */
+import ziggyRoute, { Config as ZiggyConfig } from 'ziggy-js'
 
 declare global {
-    var route: typeof ziggyRoute;
-    var Ziggy: ZiggyConfig;
+  var route: typeof ziggyRoute
+  var Ziggy: ZiggyConfig
 }
