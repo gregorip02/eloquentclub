@@ -1,3 +1,8 @@
+export interface ParagraphContract {
+  id: number;
+  text: string;
+}
+
 // export interface User {
 //     id: number;
 //     name: string;
