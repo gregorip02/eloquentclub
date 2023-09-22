@@ -1,6 +1,6 @@
 {
     "name": "Eloquent Club",
-    "short_name": "EloquentClub",
+    "short_name": "Eloquentclub",
     "icons":
     [
         {
@@ -16,5 +16,5 @@
     ],
     "theme_color": "#161519",
     "background_color": "#161519",
-    "display": "minimal-ui"
+    "display": "fullscreen"
 }
