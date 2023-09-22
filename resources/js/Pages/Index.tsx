@@ -30,24 +30,22 @@ export const Index = () => {
 
   return (
     <GuestLayout title='Start talking' className='relative'>
-      <Header />
       {!SpeechRecognition && <SpeechRecognitionUnsupported />}
       {SpeechRecognition &&
-        <>
-          <section className='h-screen overflow-y-auto snap-mandatory snap-y [&>*:last-child]:h-screen'>
-            {paragraphs.map(paragraph => {
-              return (
-                <Paragraph
-                  key={`paragraph-${paragraph.id}`}
-                  paragraph={paragraph}
-                  onListening={onListening}
-                  onListeningStopped={onListeningStopped}
-                />
-              )
-            })}
-          </section>
+        <section className='relative h-screen overflow-y-auto snap-mandatory snap-y'>
+          <Header />
+          {paragraphs.map(paragraph => {
+            return (
+              <Paragraph
+                key={`paragraph-${paragraph.id}`}
+                paragraph={paragraph}
+                onListening={onListening}
+                onListeningStopped={onListeningStopped}
+              />
+            )
+          })}
           <Voice listening={listening} />
-        </>}
+        </section>}
     </GuestLayout>
   )
 }

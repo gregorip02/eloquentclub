@@ -74,7 +74,7 @@ export const Paragraph = memo(function ({ paragraph, onListening, onListeningSto
 
   return (
     <>
-      <div ref={ref} onClick={handleTap} className='px-4 sm:px-10 max-w-2xl pt-20 mx-auto h-[100dvh] snap-start'>
+      <div ref={ref} onClick={handleTap} className='px-4 sm:px-10 max-w-2xl mx-auto pt-20 h-screen snap-start'>
         <div className='font-medium text-2xl leading-relaxed sm:text-3xl sm:leading-loose'>
           <ParagraphMatch base={paragraph.text} transcript={transcript} />
         </div>
