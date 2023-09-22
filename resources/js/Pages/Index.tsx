@@ -1,8 +1,11 @@
 import Header from '@/Components/Header'
 import Paragraph from '@/Components/Paragraph'
+import SpeechRecognitionUnsupported from '@/Components/SpeechRecognitionUnsupported'
 import Voice from '@/Components/Voice'
 import GuestLayout from '@/Layouts/GuestLayout'
 import { useCallback, useState } from 'react'
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 
 export const Index = () => {
   const [paragraphs] = useState([
@@ -28,19 +31,23 @@ export const Index = () => {
   return (
     <GuestLayout title='Start talking' className='relative'>
       <Header />
-      <section className='h-screen overflow-y-auto snap-mandatory snap-y overscroll-y-none [&>*:last-child]:h-screen'>
-        {paragraphs.map(paragraph => {
-          return (
-            <Paragraph
-              key={`paragraph-${paragraph.id}`}
-              paragraph={paragraph}
-              onListening={onListening}
-              onListeningStopped={onListeningStopped}
-            />
-          )
-        })}
-      </section>
-      <Voice listening={listening} />
+      {!SpeechRecognition && <SpeechRecognitionUnsupported />}
+      {SpeechRecognition &&
+        <>
+          <section className='h-screen overflow-y-auto snap-mandatory snap-y [&>*:last-child]:h-screen'>
+            {paragraphs.map(paragraph => {
+              return (
+                <Paragraph
+                  key={`paragraph-${paragraph.id}`}
+                  paragraph={paragraph}
+                  onListening={onListening}
+                  onListeningStopped={onListeningStopped}
+                />
+              )
+            })}
+          </section>
+          <Voice listening={listening} />
+        </>}
     </GuestLayout>
   )
 }
