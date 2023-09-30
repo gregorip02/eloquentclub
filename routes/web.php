@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Paragraph;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -15,5 +16,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/{paragraph?}', function (string $paragraph = null) {
-    return Inertia::render('Index');
+    $paragraphs = Paragraph::query()->get();
+
+    return Inertia::render('Index', compact('paragraphs'));
 });

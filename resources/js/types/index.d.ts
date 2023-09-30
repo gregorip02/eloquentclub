@@ -1,6 +1,7 @@
 export interface ParagraphContract {
   id: number;
   text: string;
+  lang: string;
 }
 
 // export interface User {

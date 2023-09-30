@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react'
 import { v4 } from 'uuid'
+import { memo, useMemo } from 'react'
 
-export const ParagraphMatch = ({ base, transcript }: { base: string, transcript: string }) => {
+export const ParagraphMatch = memo(({ base, transcript }: { base: string, transcript: string }) => {
   const baseParagraph = useMemo(() => base.split(' ').map((word) => ({
     word,
     key: v4(),
@@ -13,16 +13,16 @@ export const ParagraphMatch = ({ base, transcript }: { base: string, transcript:
     return baseParagraph.map(({ word, key }, index) => ({
       key,
       word,
-      match: Boolean(transcriptParagraph[index]) && word.toLowerCase().includes(transcriptParagraph[index])
+      match: Boolean(transcriptParagraph[index]) && word.toLowerCase().includes(transcriptParagraph[index].toLowerCase())
     }))
   }, [base, transcript])
 
   return (
     <>{matches.map(({ key, word, match }) => {
-      return <span key={key} className={match ? 'text-white' : 'text-white/20'}>{word}{' '}</span>
+      return <span key={key} className={match ? 'text-white' : 'text-white/40'}>{word}{' '}</span>
     })}
     </>
   )
-}
+})
 
 export default ParagraphMatch

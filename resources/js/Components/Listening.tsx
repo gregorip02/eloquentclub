@@ -7,7 +7,6 @@ export const Listening = () => {
         <span className='w-0.5 bg-white rounded listening-bar' />
         <span className='w-0.5 bg-white rounded listening-bar' />
         <span className='w-0.5 bg-white rounded listening-bar' />
-        <span className='w-0.5 bg-white rounded listening-bar' />
       </div>
     </>
   )

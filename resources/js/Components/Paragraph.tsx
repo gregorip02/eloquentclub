@@ -3,9 +3,9 @@ import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import ParagraphMatch from './ParagraphMatch'
 
 interface ParagraphProps {
-  paragraph: ParagraphContract
-  onListening: (paragraph: ParagraphContract) => void
-  onListeningStopped: (paragraph: ParagraphContract) => void
+  paragraph: ParagraphContract;
+  onListening: (paragraph: ParagraphContract) => void;
+  onListeningStopped: (paragraph: ParagraphContract) => void;
 }
 
 export const Paragraph = memo(function ({ paragraph, onListening, onListeningStopped }: ParagraphProps) {
@@ -15,9 +15,8 @@ export const Paragraph = memo(function ({ paragraph, onListening, onListeningSto
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting && onListeningStopped) {
-        setListening(false)
-        onListeningStopped(paragraph)
+      if (entry.isIntersecting) {
+        stopListening()
       }
     }, { root: null, rootMargin: '0px', threshold: 0.6 })
 
@@ -32,8 +31,8 @@ export const Paragraph = memo(function ({ paragraph, onListening, onListeningSto
     const SpeechRecognitionInstance = window.SpeechRecognition || window.webkitSpeechRecognition
 
     const instance = new SpeechRecognitionInstance()
-    instance.lang = 'en-US'
-    instance.continuous = true
+    instance.lang = paragraph.lang
+    instance.continuous = false
     instance.interimResults = true
 
     // This function is triggered each time the SpeechRecognition yields results,
@@ -49,27 +48,28 @@ export const Paragraph = memo(function ({ paragraph, onListening, onListeningSto
     }
 
     instance.onerror = () => {
-      setListening(false)
+      stopListening()
     }
 
     return instance
   }, [])
 
-  useEffect(() => {
-    if (listening) {
-      recognition.start()
-      setTranscript('')
-      onListening(paragraph)
-    }
+  function stopListening () {
+    recognition.stop()
+    onListeningStopped(paragraph)
+    setListening(false)
+  }
 
-    if (!listening) {
-      recognition.stop()
-      onListeningStopped(paragraph)
-    }
-  }, [listening])
+  function startListening () {
+    recognition.start()
+    setTranscript('')
+    onListening(paragraph)
+    setListening(true)
+  }
 
   function handleTap () {
-    setListening(!listening)
+    if (listening) stopListening()
+    if (!listening) startListening()
   }
 
   return (
