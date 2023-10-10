@@ -23,5 +23,4 @@ RUN chmod -R 777 /var/www/html/public \
     && rm -rf node_mdoules \
     && find /var/www/html -type d -not -path "./vendor/*" -not -path "./.git/*" -exec chmod 755 "{}" \; \
     && find /var/www/html -type f -not -path "./vendor/*" -not -path "./.git/*" -exec chmod 644 "{}" \; \
-    && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache \
-    && php artisan optimize
+    && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
