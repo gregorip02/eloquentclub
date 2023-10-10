@@ -47,9 +47,7 @@ export const Paragraph = memo(function ({ paragraph, onListening, onListeningSto
       })
     }
 
-    instance.onerror = () => {
-      stopListening()
-    }
+    instance.onerror = stopListening
 
     return instance
   }, [])

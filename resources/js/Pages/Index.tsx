@@ -4,28 +4,37 @@ import SpeechRecognitionUnsupported from '@/Components/SpeechRecognitionUnsuppor
 import Voice from '@/Components/Voice'
 import GuestLayout from '@/Layouts/GuestLayout'
 import { ParagraphContract } from '@/types'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
+import ListeningAudio from '@/../sounds/listening.mp3'
+import StopListeningAudio from '@/../sounds/stop-listening.mp3'
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 
 export const Index = ({ paragraphs }: { paragraphs: ParagraphContract[] }) => {
   const [listening, setListening] = useState(false)
 
+  const startNotification = useMemo(() => new Audio(ListeningAudio), [])
+  const stopNotification = useMemo(() => new Audio(StopListeningAudio), [])
+
   const onListening = useCallback(() => {
-    if (!listening) {
-      setListening(true)
-    }
+    setListening((prev) => {
+      if (!prev) startNotification.play()
+      return true
+    })
   }, [])
 
   const onListeningStopped = useCallback(() => {
-    setListening(false)
+    setListening((prev) => {
+      if (prev) stopNotification.play()
+      return false
+    })
   }, [])
 
   return (
     <GuestLayout title='Practice pronunciation' className='relative'>
       {!SpeechRecognition && <SpeechRecognitionUnsupported />}
       {SpeechRecognition &&
-        <section className='relative h-screen overflow-y-auto snap-mandatory snap-y'>
+        <section className='relative h-screen overflow-y-auto snap-mandatory snap-y overscroll-y-none'>
           <Header />
           {paragraphs.map(paragraph => {
             return (
