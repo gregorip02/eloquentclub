@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Paragraph;
+use App\Http\Controllers\LangPreferenceController;
+use App\Http\Controllers\ParagraphController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +15,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/{paragraph?}', function (string $paragraph = null) {
-    $paragraphs = Paragraph::query()->get();
+Route::get('/', [ParagraphController::class, 'redirect']);
 
-    return Inertia::render('Index', compact('paragraphs'));
-});
+Route::get('/preferences/lang', [LangPreferenceController::class, 'index']);
+Route::post('/preferences/lang', [LangPreferenceController::class, 'update']);
+
+Route::get('/{lang}/{slug}', [ParagraphController::class, 'index']);

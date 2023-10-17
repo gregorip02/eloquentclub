@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react'
 import { PropsWithChildren } from 'react'
 
-export default function Guest ({ children, title, className }: PropsWithChildren<{ title?: string, className?: string }>) {
+export default function GuestLayout ({ children, title, className }: PropsWithChildren<{ title?: string, className?: string }>) {
   return (
     <>
       <Head title={title} />

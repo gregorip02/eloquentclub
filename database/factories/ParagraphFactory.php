@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Paragraph;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Inspiring;
 
@@ -19,7 +20,8 @@ class ParagraphFactory extends Factory
     {
         return [
             'text' => Inspiring::quotes()->random(),
-            'lang' => 'en',
+            'lang' => 'en-US',
+            'slug' => Paragraph::generateRandomSlug(),
         ];
     }
 }
