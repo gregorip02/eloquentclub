@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\AppServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Inertia\Inertia;
@@ -15,9 +16,9 @@ class LangPreferenceController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate(['lang' => 'required']);
+        $request->validate(['code' => 'required']);
 
-        $cookie = Cookie::forever('x-user-lang', $request->input('lang'));
+        $cookie = Cookie::forever(AppServiceProvider::X_COOKIE_LANG_NAME, $request->input('code'));
 
         return redirect('/')->withCookie($cookie);
     }

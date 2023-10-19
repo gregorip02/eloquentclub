@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Paragraph::factory(10)->create();
+        Paragraph::factory(10)->es()->create();
     }
 }

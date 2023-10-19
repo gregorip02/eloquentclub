@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Paragraph;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Foundation\Inspiring;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Paragraph>
@@ -19,9 +18,17 @@ class ParagraphFactory extends Factory
     public function definition(): array
     {
         return [
-            'text' => Inspiring::quotes()->random(),
+            'text' => fake()->paragraph(),
             'lang' => 'en-US',
             'slug' => Paragraph::generateRandomSlug(),
         ];
+    }
+
+    public function es(): self
+    {
+        return $this->state([
+            'lang' => 'es-ES',
+            'text' => fake('es-ES')->paragraph(),
+        ]);
     }
 }

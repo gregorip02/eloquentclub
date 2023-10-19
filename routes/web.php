@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ParagraphController::class, 'redirect']);
-
 Route::get('/preferences/lang', [LangPreferenceController::class, 'index']);
-Route::post('/preferences/lang', [LangPreferenceController::class, 'update']);
-
+Route::put('/preferences/lang', [LangPreferenceController::class, 'update']);
 Route::get('/{lang}/{slug}', [ParagraphController::class, 'index']);

@@ -7,6 +7,7 @@ import { ParagraphContract } from '@/types'
 import { useCallback, useMemo, useState } from 'react'
 import ListeningAudio from '@/../sounds/listening.mp3'
 import StopListeningAudio from '@/../sounds/stop-listening.mp3'
+import CurrentLangLink from '@/Components/CurrentLangLink'
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 
@@ -35,7 +36,9 @@ export const Index = ({ paragraphs }: { paragraphs: ParagraphContract[] }) => {
       {!SpeechRecognition && <SpeechRecognitionUnsupported />}
       {SpeechRecognition &&
         <section className='relative h-screen overflow-y-auto snap-mandatory snap-y overscroll-y-none'>
-          <Header />
+          <Header>
+            <CurrentLangLink />
+          </Header>
           {paragraphs.map(paragraph => {
             return (
               <Paragraph

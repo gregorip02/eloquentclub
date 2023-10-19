@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paragraph;
+use App\Providers\AppServiceProvider;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -22,7 +23,7 @@ class ParagraphController extends Controller
 
     public function redirect(Request $request)
     {
-        $lang = $request->cookie('x-user-lang', 'en-US');
+        $lang = $request->cookie(AppServiceProvider::X_COOKIE_LANG_NAME, 'en-US');
 
         $slug = Paragraph::getRandomSlug($lang);
 

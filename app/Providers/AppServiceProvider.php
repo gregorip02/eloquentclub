@@ -7,6 +7,8 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public const X_COOKIE_LANG_NAME = 'x-user-lang';
+
     /**
      * Register any application services.
      */
