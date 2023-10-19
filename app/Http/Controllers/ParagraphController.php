@@ -9,6 +9,10 @@ use Inertia\Inertia;
 
 class ParagraphController extends Controller
 {
+    /**
+     * Return a paragraph based on the slug received in the URL, and generate N
+     * additional random paragraphs based on the language received as a parameter.
+     */
     public function index(Request $request, string $lang, string $slug)
     {
         $paragraph = Paragraph::whereLang($lang)->whereSlug($slug)->firstOrFail();
@@ -21,6 +25,10 @@ class ParagraphController extends Controller
         return Inertia::render('Index', compact('paragraphs'));
     }
 
+    /**
+     * Requests received at the root of the page should be redirected to a random
+     * paragraph.
+     */
     public function redirect(Request $request)
     {
         $lang = $request->cookie(AppServiceProvider::X_COOKIE_LANG_NAME, 'en-US');
