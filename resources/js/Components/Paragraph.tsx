@@ -6,9 +6,11 @@ interface ParagraphProps {
   paragraph: ParagraphContract;
   onListening: (paragraph: ParagraphContract) => void;
   onListeningStopped: (paragraph: ParagraphContract) => void;
+  onViewportLeave?: (paragraph: ParagraphContract) => void;
+  onViewportEntered?: (paragraph: ParagraphContract) => void;
 }
 
-export const Paragraph = memo(function ({ paragraph, onListening, onListeningStopped }: ParagraphProps) {
+export const Paragraph = memo(function ({ paragraph, onListening, onListeningStopped, onViewportEntered }: ParagraphProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [listening, setListening] = useState(false)
   const [transcript, setTranscript] = useState<string>('')
@@ -17,8 +19,9 @@ export const Paragraph = memo(function ({ paragraph, onListening, onListeningSto
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         stopListening()
+        onViewportEntered && onViewportEntered(paragraph)
       }
-    }, { root: null, rootMargin: '0px', threshold: 0.6 })
+    }, { root: null, rootMargin: '0px', threshold: 1 })
 
     if (ref.current) observer.observe(ref.current)
 

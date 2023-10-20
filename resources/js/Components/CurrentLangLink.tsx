@@ -1,18 +1,18 @@
 import { Link } from '@inertiajs/react'
 
-function currentLang (): [string, string] {
+function currentLang (): [string, string, string] {
   const langs = {
-    'EN-US': { text: 'English', flag: '🇺🇸' },
-    'ES-ES': { text: 'Español', flag: '🇪🇸' }
+    'en-US': { text: 'English', flag: '🇺🇸' },
+    'es-ES': { text: 'Español', flag: '🇪🇸' }
   }
 
   // The location path must be "/{lang}/{slug}" for example "/en-US/DkRuPMoAIU7m"
   // so we need to get the "/{lang}/" parameter.
-  const currentLangCode = window.location.pathname.split('/').at(1)?.toUpperCase() as keyof typeof langs
+  const code = window.location.pathname.split('/').at(1) as keyof typeof langs
 
-  const { flag, text } = langs[currentLangCode]
+  const { flag, text } = langs[code] || langs['en-US']
 
-  return [flag, text]
+  return [flag, text, code]
 }
 
 export const CurrentLangLink = () => {

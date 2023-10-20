@@ -19,10 +19,24 @@ class ParagraphController extends Controller
 
         $paragraphs = [
             $paragraph,
-            ...Paragraph::getNextRandomParagraphs($lang, [$paragraph->id]),
+            ...Paragraph::getNextRandomParagraphs($lang, 10, [$paragraph->id]),
         ];
 
         return Inertia::render('Index', compact('paragraphs'));
+    }
+
+    public function random(Request $request, string $lang)
+    {
+        $request->validate([
+            'count' => 'sometimes|numeric|min:1|max:20',
+            'not' => 'sometimes|string',
+        ]);
+
+        $count = $request->integer('count', 10);
+
+        $not = explode(':', $request->input('not', ''));
+
+        return Paragraph::getNextRandomParagraphs($lang, $count, $not);
     }
 
     /**

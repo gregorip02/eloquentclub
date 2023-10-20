@@ -40,7 +40,10 @@ class Paragraph extends Model
         return Paragraph::whereKey($id)->value('slug');
     }
 
-    public static function getNextRandomParagraphs(string $lang, array $not = [], int $count = 4): Collection
+    /**
+     * Get N random paragraphs.
+     */
+    public static function getNextRandomParagraphs(string $lang, int $count = 5, array $not = []): Collection
     {
         $ids = Paragraph::whereKeyNot($not)->whereLang($lang)->pluck('id')->random($count);
 
