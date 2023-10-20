@@ -14,7 +14,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
 export const Index = ({ paragraphs: initialParagraphs }: { paragraphs: ParagraphContract[] }) => {
   const [listening, setListening] = useState(false)
   const [paragraphs, setParagraphs] = useState(initialParagraphs)
-  const currentLangCode = window.location.pathname.split('/').at(0) || 'en-US'
+  const currentLangCode = window.location.pathname.split('/').at(1) || 'en-US'
 
   // const startNotification = useMemo(() => new Audio(ListeningAudio), [])
   // const stopNotification = useMemo(() => new Audio(StopListeningAudio), [])
