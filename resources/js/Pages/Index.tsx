@@ -4,7 +4,7 @@ import SpeechRecognitionUnsupported from '@/Components/SpeechRecognitionUnsuppor
 import Voice from '@/Components/Voice'
 import GuestLayout from '@/Layouts/GuestLayout'
 import { ParagraphContract } from '@/types'
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 // import ListeningAudio from '@/../sounds/listening.mp3'
 // import StopListeningAudio from '@/../sounds/stop-listening.mp3'
 import CurrentLangLink from '@/Components/CurrentLangLink'
@@ -14,6 +14,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
 export const Index = ({ paragraphs: initialParagraphs }: { paragraphs: ParagraphContract[] }) => {
   const [listening, setListening] = useState(false)
   const [paragraphs, setParagraphs] = useState(initialParagraphs)
+  const paragraphsRef = useRef(paragraphs)
   const currentLangCode = window.location.pathname.split('/').at(1) || 'en-US'
 
   // const startNotification = useMemo(() => new Audio(ListeningAudio), [])
@@ -34,23 +35,21 @@ export const Index = ({ paragraphs: initialParagraphs }: { paragraphs: Paragraph
   }, [])
 
   async function fetchNextRandomParagraphs (): Promise<ParagraphContract[]> {
-    const not = paragraphs.map(p => p.id).join(':')
+    const not = paragraphsRef.current.map(p => p.id).join(':')
     return fetch(`/api/v1/paragraphs/${currentLangCode}/random?not=${not}`).then(res => res.json())
   }
 
   const onViewportEntered = useCallback(async (paragraph: ParagraphContract) => {
-    let scrollFinished = false
-
-    setParagraphs(prev => {
-      scrollFinished = prev.at(-1)?.id === paragraph.id
-      return prev
-    })
-
+    const scrollFinished = paragraphsRef.current.at(-1)?.id === paragraph.id
     if (scrollFinished) {
       const next = await fetchNextRandomParagraphs()
-      setParagraphs(prev => ([...prev, ...next]))
+      setParagraphs(prev => {
+        const current = [...prev, ...next]
+        paragraphsRef.current = current
+        return current
+      })
     }
-  }, [paragraphs])
+  }, [])
 
   return (
     <GuestLayout title='Practice pronunciation' className='relative'>
