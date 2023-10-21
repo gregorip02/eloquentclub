@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Paragraph;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Paragraph::factory(10)->create();
-        Paragraph::factory(10)->es()->create();
+        $query = file_get_contents(database_path('dataset.sql'));
+
+        DB::statement($query);
     }
 }
