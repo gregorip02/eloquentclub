@@ -76,6 +76,8 @@ export const Paragraph = memo(function ({ paragraph, onListening, onListeningSto
     if (!listening) startListening()
   }
 
+  console.log(transcript)
+
   return (
     <>
       <div ref={ref} onClick={handleTap} className='px-4 sm:px-10 max-w-2xl mx-auto pt-20 h-screen snap-start'>
