@@ -35,7 +35,7 @@ export const Paragraph = memo(function ({ paragraph, onListening, onListeningSto
 
     const instance = new SpeechRecognitionInstance()
     instance.lang = paragraph.lang
-    instance.continuous = true
+    instance.continuous = false
     instance.interimResults = true
 
     // This function is triggered each time the SpeechRecognition yields results,
@@ -75,8 +75,6 @@ export const Paragraph = memo(function ({ paragraph, onListening, onListeningSto
     if (listening) stopListening()
     if (!listening) startListening()
   }
-
-  console.log(transcript)
 
   return (
     <>
