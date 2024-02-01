@@ -11,7 +11,7 @@ RUN apt-get update \
     && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
     && apt-get update \
     && apt-get install -y -o Dpkg::Options::="--force-confold" --no-install-recommends \
-        nodejs build-essential php8.1-pgsql php8.1-sqlite php8.1-redis php8.1-curl \
+        nodejs build-essential php8.1-mysql php8.1-sqlite php8.1-redis php8.1-curl \
         supervisor postgresql-client \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
