@@ -10,9 +10,9 @@ RUN apt-get update \
     && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends nodejs supervisor \
-    && curl --proto '=https' --tlsv1.2 -sSf "https://darkterminal.github.io/turso-php-installer/dist/turso-php-installer.phar" ./turso-php-installer.phar \
-    && mv turso-php-installer.phar /usr/local/bin/turso-php-installer \
-    && turso-php-installer install \
+    # && curl --proto '=https' --tlsv1.2 -sSf "https://darkterminal.github.io/turso-php-installer/dist/turso-php-installer.phar" ./turso-php-installer.phar \
+    # && mv turso-php-installer.phar /usr/local/bin/turso-php-installer \
+    # && turso-php-installer install \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
