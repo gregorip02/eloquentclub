@@ -71,7 +71,17 @@ export const Paragraph = memo(function ({ paragraph, onListening, onListeningSto
     setListening(true)
   }
 
-  function handleTap () {
+  async function requestMicrophonePermission (): Promise<boolean> {
+    return new Promise((resolve) => {
+      navigator.mediaDevices.getUserMedia({ video: false, audio: true })
+        .then(() => resolve(true))
+        .catch(() => resolve(false))
+    })
+  }
+
+  async function handleTap () {
+    const microphoneGranted = await requestMicrophonePermission()
+    if (!microphoneGranted) return
     if (listening) stopListening()
     if (!listening) startListening()
   }

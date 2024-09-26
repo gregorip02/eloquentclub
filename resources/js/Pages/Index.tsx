@@ -4,9 +4,9 @@ import SpeechRecognitionUnsupported from '@/Components/SpeechRecognitionUnsuppor
 import Voice from '@/Components/Voice'
 import GuestLayout from '@/Layouts/GuestLayout'
 import { ParagraphContract } from '@/types'
-import { useCallback, useRef, useState } from 'react'
-// import ListeningAudio from '@/../sounds/listening.mp3'
-// import StopListeningAudio from '@/../sounds/stop-listening.mp3'
+import { useCallback, useMemo, useRef, useState } from 'react'
+import ListeningAudio from '@/../sounds/listening.mp3'
+import StopListeningAudio from '@/../sounds/stop-listening.mp3'
 import CurrentLangLink from '@/Components/CurrentLangLink'
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -17,19 +17,19 @@ export const Index = ({ paragraphs: initialParagraphs }: { paragraphs: Paragraph
   const paragraphsRef = useRef(paragraphs)
   const currentLangCode = window.location.pathname.split('/').at(1) || 'en-US'
 
-  // const startNotification = useMemo(() => new Audio(ListeningAudio), [])
-  // const stopNotification = useMemo(() => new Audio(StopListeningAudio), [])
+  const startNotification = useMemo(() => new Audio(ListeningAudio), [])
+  const stopNotification = useMemo(() => new Audio(StopListeningAudio), [])
 
   const onListening = useCallback(() => {
     setListening((prev) => {
-      // if (!prev) startNotification.play()
+      if (!prev) startNotification.play()
       return true
     })
   }, [])
 
   const onListeningStopped = useCallback(() => {
     setListening((prev) => {
-      // if (prev) stopNotification.play()
+      if (prev) stopNotification.play()
       return false
     })
   }, [])
